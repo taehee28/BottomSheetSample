@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.bottomsheetsample.databinding.DialogFragmentBaseBinding
+import com.example.bottomsheetsample.databinding.DialogBottomSheetBaseBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 
-    private var _binding: DialogFragmentBaseBinding? = null
+    private var _binding: DialogBottomSheetBaseBinding? = null
     protected val binding
         get() = _binding!!
 
@@ -21,7 +21,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        _binding = DialogFragmentBaseBinding.inflate(inflater, container, false)
+        _binding = DialogBottomSheetBaseBinding.inflate(inflater, container, false)
         return binding.root
     }
 

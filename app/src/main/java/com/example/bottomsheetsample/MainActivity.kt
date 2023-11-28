@@ -3,6 +3,7 @@ package com.example.bottomsheetsample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.bottomsheetsample.bottomsheet.BaseBottomSheetDialog
+import com.example.bottomsheetsample.bottomsheet.count.CountBottomSheet
 import com.example.bottomsheetsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnShowBottomSheet.setOnClickListener {
-
+            CountBottomSheet().show(supportFragmentManager, "")
         }
     }
 }
