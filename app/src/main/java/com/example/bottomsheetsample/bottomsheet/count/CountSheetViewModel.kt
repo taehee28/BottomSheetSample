@@ -4,6 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class CountSheetViewModel : ViewModel() {
 
@@ -11,29 +18,29 @@ class CountSheetViewModel : ViewModel() {
         Log.d("TAG", ">> ViewModel created")
     }
 
-    private val _screenStep = MutableLiveData<CountSheetScreen>(CountSheetScreen.FIRST)
-    val screenStep: LiveData<CountSheetScreen>
-        get() = _screenStep
+    private val _screenFlow = MutableSharedFlow<CountSheetScreen>(replay = 1)
+    val screenFlow
+        get() = _screenFlow.asSharedFlow()
 
-    private val _count = MutableLiveData<Int>(0)
-    val count: LiveData<Int>
-        get() = _count
+    private val _count = MutableStateFlow(0)
+    val count
+        get() = _count.asStateFlow()
 
     fun increase() {
-        count.value?.also {
-            _count.value = it + 1
-        }
+        _count.update { it + 1 }
     }
 
     fun decrease() {
-        count.value?.also {
-            if (it > 1) {
-                _count.value = it - 1
-            }
+        _count.update {
+            if (it > 1) it - 1 else 0
         }
     }
 
-    fun moveScreen(screen: CountSheetScreen) {
-        _screenStep.value = screen
+    fun moveScreen(screen: CountSheetScreen) = viewModelScope.launch {
+        _screenFlow.emit(screen)
+    }
+
+    fun close() = viewModelScope.launch {
+        _screenFlow.emit(CountSheetScreen.CLOSE)
     }
 }

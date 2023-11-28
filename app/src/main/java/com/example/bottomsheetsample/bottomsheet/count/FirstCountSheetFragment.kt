@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomsheetsample.bottomsheet.BaseSheetFragment
 import com.example.bottomsheetsample.databinding.DialogFragmentCountFirstBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FirstCountSheetFragment : BaseSheetFragment<DialogFragmentCountFirstBinding>() {
 
@@ -41,10 +46,14 @@ class FirstCountSheetFragment : BaseSheetFragment<DialogFragmentCountFirstBindin
     }
 
     private fun observeCountValue() {
-        viewModel.count.observe(viewLifecycleOwner) {
-            it ?: return@observe
-
-            binding.tvCount.text = it.toString()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel
+                    .count
+                    .collectLatest {
+                        binding.tvCount.text = it.toString()
+                    }
+            }
         }
     }
 }

@@ -2,7 +2,14 @@ package com.example.bottomsheetsample.bottomsheet.count
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomsheetsample.bottomsheet.BaseBottomSheetDialog
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 class CountBottomSheet : BaseBottomSheetDialog() {
 
@@ -15,31 +22,47 @@ class CountBottomSheet : BaseBottomSheetDialog() {
             .add(binding.root.id, FirstCountSheetFragment(), CountSheetScreen.FIRST.name)
             .commit()
 
-        observeScreenStep()
+        viewModel.moveScreen(CountSheetScreen.FIRST)
+
+        observeScreenFlow()
     }
 
-    private fun observeScreenStep() {
-        viewModel.screenStep.observe(viewLifecycleOwner) {
-            Log.d("CountBottomSheet", ">> screen : ${it.name}")
+    private fun observeScreenFlow() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel
+                    .screenFlow
+                    .distinctUntilChanged()
+                    .collectLatest {
+                        Log.d("CountBottomSheet", ">> screen : ${it.name}")
 
-            it ?: return@observe
-
-            val (nextFrag, currentFrag) = when (it) {
-                CountSheetScreen.FIRST -> {
-                    childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name) to
-                            childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name)
-                }
-                CountSheetScreen.SECOND -> {
-                    childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name) to
-                            childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name)
-                }
+                        if (it == CountSheetScreen.CLOSE) {
+                            this@CountBottomSheet.dismiss()
+                        } else {
+                            changeScreen(screen = it)
+                        }
+                    }
             }
-
-            childFragmentManager
-                .beginTransaction()
-                .hide(currentFrag!!)
-                .show(nextFrag!!)
-                .commit()
         }
+    }
+
+    private fun changeScreen(screen: CountSheetScreen) {
+        val (nextFrag, currentFrag) = when (screen) {
+            CountSheetScreen.FIRST -> {
+                childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name) to
+                        childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name)
+            }
+            CountSheetScreen.SECOND -> {
+                childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name) to
+                        childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name)
+            }
+            else -> throw IllegalArgumentException("없는 화면")
+        }
+
+        childFragmentManager
+            .beginTransaction()
+            .hide(currentFrag!!)
+            .show(nextFrag!!)
+            .commit()
     }
 }

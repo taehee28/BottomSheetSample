@@ -5,8 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomsheetsample.bottomsheet.BaseSheetFragment
 import com.example.bottomsheetsample.databinding.DialogFragmentCountSecondBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SecondCountSheetFragment : BaseSheetFragment<DialogFragmentCountSecondBinding>() {
 
@@ -25,6 +30,24 @@ class SecondCountSheetFragment : BaseSheetFragment<DialogFragmentCountSecondBind
         binding.apply {
             btnPrev.setOnClickListener {
                 viewModel.moveScreen(screen = CountSheetScreen.FIRST)
+            }
+
+            btnClose.setOnClickListener {
+                viewModel.close()
+            }
+        }
+
+        observeCountValue()
+    }
+
+    private fun observeCountValue() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel
+                    .count
+                    .collectLatest {
+                        binding.tvCount.text = it.toString()
+                    }
             }
         }
     }
