@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import com.example.bottomsheetsample.databinding.DialogFragmentBaseBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SampleBottomSheetDialog : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 
     private var _binding: DialogFragmentBaseBinding? = null
-    private val binding
+    protected val binding
         get() = _binding!!
+
+    abstract fun initView()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +23,12 @@ class SampleBottomSheetDialog : BottomSheetDialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = DialogFragmentBaseBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
     }
 
     override fun onDestroyView() {
