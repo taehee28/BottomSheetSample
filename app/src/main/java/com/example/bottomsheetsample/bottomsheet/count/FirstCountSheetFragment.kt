@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +25,7 @@ class FirstCountSheetFragment : BaseSheetFragment<DialogFragmentCountFirstBindin
     // 그냥 parentFragment를 얻으면 HostFragment가 나온다.
     // CountBottomSheet의 Fragment를 얻기 위해서 parent의 parent fragment를 요청.
     private val viewModel: CountSheetViewModel by viewModels({ grandParentFragment })
+//    private val viewModel: CountSheetViewModel by activityViewModels()
 
     override fun getBinding(
         layoutInflater: LayoutInflater,

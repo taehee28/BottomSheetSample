@@ -17,7 +17,10 @@ class CountSheetViewModel : ViewModel() {
         Log.d("TAG", ">> ViewModel created")
     }
 
-    private val _screenFlow = MutableSharedFlow<SheetScreenEvent>(replay = 1)
+    // relay 값을 설정하면 처음 닫았을 때 방출된 CLOSE가
+    // 바텀시트 다시 열면서 전달이 되어서
+    // 바텀시트가 열리지 않고 다시 닫힘
+    private val _screenFlow = MutableSharedFlow<SheetScreenEvent>()
     val screenFlow
         get() = _screenFlow.asSharedFlow()
 

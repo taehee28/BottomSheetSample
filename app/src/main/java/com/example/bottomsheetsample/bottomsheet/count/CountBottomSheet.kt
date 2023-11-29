@@ -1,6 +1,7 @@
 package com.example.bottomsheetsample.bottomsheet.count
 
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 class CountBottomSheet : BaseBottomSheetDialog() {
 
     private val viewModel: CountSheetViewModel by viewModels()
+//    private val viewModel: CountSheetViewModel by activityViewModels()
 
     // TODO: Base로 빼기?
     private lateinit var navController: NavController

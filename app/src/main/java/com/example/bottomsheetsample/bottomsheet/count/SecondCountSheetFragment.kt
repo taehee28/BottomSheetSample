@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 class SecondCountSheetFragment : BaseSheetFragment<DialogFragmentCountSecondBinding>() {
 
     private val viewModel: CountSheetViewModel by viewModels({ grandParentFragment })
+//    private val viewModel: CountSheetViewModel by activityViewModels()
 
     override fun getBinding(
         layoutInflater: LayoutInflater,
