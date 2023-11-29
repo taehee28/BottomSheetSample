@@ -28,7 +28,7 @@ class CountBottomSheet : BaseBottomSheetDialog() {
 
     /**
      * navController 초기화.
-     * (그냥 find
+     * (그냥 findNavController 하면 못찾음)
      */
     private fun initNavController() {
         val navHostFragment = childFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
