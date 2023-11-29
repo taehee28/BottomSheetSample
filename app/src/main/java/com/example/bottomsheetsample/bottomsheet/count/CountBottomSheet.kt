@@ -15,6 +15,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
+/**
+ * 예제로 만든 바텀 시트 다이얼로그.
+ * 바텀 시트 위에 얹어지는 Fragment들과 ViewModel을 통해서 데이터를 주고받음. 
+ */
 class CountBottomSheet : BaseBottomSheetDialog() {
 
     private val viewModel: CountSheetViewModel by viewModels()

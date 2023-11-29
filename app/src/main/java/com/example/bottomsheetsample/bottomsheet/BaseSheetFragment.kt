@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
+/**
+ * 바텀 시트에 표시할 내용이 되는 Fragment들의 Base 클래스.
+ */
 abstract class BaseSheetFragment<VB: ViewBinding> : Fragment() {
     private var _binding: VB? = null
     protected val binding

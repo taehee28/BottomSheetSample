@@ -11,6 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * [CountBottomSheet], [FirstCountSheetFragment], [SecondCountSheetFragment]가 공유하는 ViewModel
+ */
 class CountSheetViewModel : ViewModel() {
 
     init {

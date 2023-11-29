@@ -18,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * 커스텀 바텀 시트의 틀이 되는 Base 클래스.
- *
+ * 바텀 시트 내에서 화면을 이동한다는 전제로 만들어짐.
  */
 abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 

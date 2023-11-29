@@ -20,6 +20,9 @@ import com.example.bottomsheetsample.databinding.DialogFragmentCountFirstBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * [CountBottomSheet]에 처음으로 표시될 Fragment.
+ */
 class FirstCountSheetFragment : BaseSheetFragment<DialogFragmentCountFirstBinding>() {
 
     // 그냥 parentFragment를 얻으면 HostFragment가 나온다.
@@ -36,8 +39,6 @@ class FirstCountSheetFragment : BaseSheetFragment<DialogFragmentCountFirstBindin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("TAG", ">> parent parent fragment = ${requireParentFragment().requireParentFragment()}")
 
         binding.apply {
             btnMinus.setOnClickListener {

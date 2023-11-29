@@ -16,6 +16,9 @@ import com.example.bottomsheetsample.databinding.DialogFragmentCountSecondBindin
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * [CountBottomSheet]에 두번째로 표시될 Fragment.
+ */
 class SecondCountSheetFragment : BaseSheetFragment<DialogFragmentCountSecondBinding>() {
 
     private val viewModel: CountSheetViewModel by viewModels({ grandParentFragment })
