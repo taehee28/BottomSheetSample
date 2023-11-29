@@ -20,21 +20,11 @@ class CountBottomSheet : BaseBottomSheetDialog() {
     private val viewModel: CountSheetViewModel by viewModels()
 //    private val viewModel: CountSheetViewModel by activityViewModels()
 
-    // TODO: Base로 빼기?
-    private lateinit var navController: NavController
+    override val navGraphId: Int
+        get() = R.navigation.count_bottom_sheet_nav_graph
 
     override fun initView() {
-        initNavController()
         observeScreenFlow()
-    }
-
-    /**
-     * navController 초기화.
-     * (그냥 findNavController 하면 못찾음)
-     */
-    private fun initNavController() {
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
     }
 
     private fun observeScreenFlow() {
