@@ -5,9 +5,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.example.bottomsheetsample.R
 import com.example.bottomsheetsample.bottomsheet.BaseBottomSheetDialog
+import com.example.bottomsheetsample.bottomsheet.SheetScreenEvent
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
@@ -15,16 +18,21 @@ class CountBottomSheet : BaseBottomSheetDialog() {
 
     private val viewModel: CountSheetViewModel by viewModels()
 
+    // TODO: Base로 빼기?
+    private lateinit var navController: NavController
+
     override fun initView() {
-        childFragmentManager
-            .beginTransaction()
-            .add(binding.root.id, SecondCountSheetFragment(), CountSheetScreen.SECOND.name)
-            .add(binding.root.id, FirstCountSheetFragment(), CountSheetScreen.FIRST.name)
-            .commit()
-
-        viewModel.moveScreen(CountSheetScreen.FIRST)
-
+        initNavController()
         observeScreenFlow()
+    }
+
+    /**
+     * navController 초기화.
+     * (그냥 find
+     */
+    private fun initNavController() {
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     private fun observeScreenFlow() {
@@ -36,7 +44,7 @@ class CountBottomSheet : BaseBottomSheetDialog() {
                     .collectLatest {
                         Log.d("CountBottomSheet", ">> screen : ${it.name}")
 
-                        if (it == CountSheetScreen.CLOSE) {
+                        if (it == SheetScreenEvent.CLOSE) {
                             this@CountBottomSheet.dismiss()
                         } else {
                             changeScreen(screen = it)
@@ -46,23 +54,17 @@ class CountBottomSheet : BaseBottomSheetDialog() {
         }
     }
 
-    private fun changeScreen(screen: CountSheetScreen) {
-        val (nextFrag, currentFrag) = when (screen) {
-            CountSheetScreen.FIRST -> {
-                childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name) to
-                        childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name)
+    private fun changeScreen(screen: SheetScreenEvent) {
+        when (screen) {
+            SheetScreenEvent.NEXT -> {
+                // 스텝이 여러개인 경우 화면마다 다음으로 넘어가는 action의 아이디를 통일시켜서
+                // 어떤 화면이라도 같은 action 아이디를 사용하도록 하기
+                navController.navigate(R.id.action_firstCountSheetFragment_to_secondCountSheetFragment)
             }
-            CountSheetScreen.SECOND -> {
-                childFragmentManager.findFragmentByTag(CountSheetScreen.SECOND.name) to
-                        childFragmentManager.findFragmentByTag(CountSheetScreen.FIRST.name)
+            SheetScreenEvent.PREV -> {
+                navController.popBackStack()
             }
             else -> throw IllegalArgumentException("없는 화면")
         }
-
-        childFragmentManager
-            .beginTransaction()
-            .hide(currentFrag!!)
-            .show(nextFrag!!)
-            .commit()
     }
 }

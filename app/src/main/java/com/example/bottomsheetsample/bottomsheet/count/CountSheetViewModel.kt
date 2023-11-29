@@ -1,10 +1,9 @@
 package com.example.bottomsheetsample.bottomsheet.count
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bottomsheetsample.bottomsheet.SheetScreenEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -18,7 +17,7 @@ class CountSheetViewModel : ViewModel() {
         Log.d("TAG", ">> ViewModel created")
     }
 
-    private val _screenFlow = MutableSharedFlow<CountSheetScreen>(replay = 1)
+    private val _screenFlow = MutableSharedFlow<SheetScreenEvent>(replay = 1)
     val screenFlow
         get() = _screenFlow.asSharedFlow()
 
@@ -36,11 +35,11 @@ class CountSheetViewModel : ViewModel() {
         }
     }
 
-    fun moveScreen(screen: CountSheetScreen) = viewModelScope.launch {
+    fun moveScreen(screen: SheetScreenEvent) = viewModelScope.launch {
         _screenFlow.emit(screen)
     }
 
     fun close() = viewModelScope.launch {
-        _screenFlow.emit(CountSheetScreen.CLOSE)
+        _screenFlow.emit(SheetScreenEvent.CLOSE)
     }
 }

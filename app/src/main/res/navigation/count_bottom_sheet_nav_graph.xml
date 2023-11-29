@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/count_bottom_sheet_nav_graph"
+    app:startDestination="@id/firstCountSheetFragment">
+
+    <fragment
+        android:id="@+id/firstCountSheetFragment"
+        android:name="com.example.bottomsheetsample.bottomsheet.count.FirstCountSheetFragment"
+        android:label="FirstCountSheetFragment" >
+        <action
+            android:id="@+id/action_firstCountSheetFragment_to_secondCountSheetFragment"
+            app:destination="@id/secondCountSheetFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondCountSheetFragment"
+        android:name="com.example.bottomsheetsample.bottomsheet.count.SecondCountSheetFragment"
+        android:label="SecondCountSheetFragment" />
+</navigation>
