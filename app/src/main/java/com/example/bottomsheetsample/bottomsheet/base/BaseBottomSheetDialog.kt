@@ -26,15 +26,6 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
     protected val binding
         get() = _binding!!
 
-    protected val navController: NavController by lazy {
-        findNavHostFragment(R.id.fragment_container).findNavController()
-    }
-
-    @get:NavigationRes
-    protected abstract val navGraphId: Int
-
-    abstract fun initView()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,19 +34,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = DialogBottomSheetBaseBinding.inflate(inflater, container, false)
 
-        setNavGraph()
-
         return binding.root
-    }
-
-    private fun setNavGraph() {
-        navController.setGraph(navGraphId)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initView()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

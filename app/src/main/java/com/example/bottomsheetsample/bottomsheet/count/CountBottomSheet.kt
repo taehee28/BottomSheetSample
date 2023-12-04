@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.bottomsheetsample.R
 import com.example.bottomsheetsample.bottomsheet.base.BaseBottomSheetDialog
+import com.example.bottomsheetsample.bottomsheet.base.BaseNavigationBottomSheetDialog
 import com.example.bottomsheetsample.bottomsheet.base.SheetScreenEvent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
  * 예제로 만든 바텀 시트 다이얼로그.
  * 바텀 시트 위에 얹어지는 Fragment들과 ViewModel을 통해서 데이터를 주고받음. 
  */
-class CountBottomSheet : BaseBottomSheetDialog() {
+class CountBottomSheet : BaseNavigationBottomSheetDialog() {
 
     private val viewModel: CountSheetViewModel by viewModels()
 //    private val viewModel: CountSheetViewModel by activityViewModels()
@@ -24,26 +25,27 @@ class CountBottomSheet : BaseBottomSheetDialog() {
     override val navGraphId: Int
         get() = R.navigation.count_bottom_sheet_nav_graph
 
-    override fun initView() {
+    override fun initialize() {
         observeScreenFlow()
     }
 
     private fun observeScreenFlow() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel
-                    .screenFlow
-                    .distinctUntilChanged()
-                    .collectLatest {
-                        Log.d("CountBottomSheet", ">> screen : ${it.name}")
+            // repeatOnLifecycle에 STARTED 지정해서 사용하면
+            // viewModel 인스턴스 생성이 STARTED로 미뤄짐.
+            // 하위 Fragment에서 인스턴스 공유 못받음
+            viewModel
+                .screenFlow
+                .distinctUntilChanged()
+                .collectLatest {
+                    Log.d("CountBottomSheet", ">> screen : ${it.name}")
 
-                        if (it == SheetScreenEvent.CLOSE) {
-                            this@CountBottomSheet.dismiss()
-                        } else {
-                            changeScreen(screen = it)
-                        }
+                    if (it == SheetScreenEvent.CLOSE) {
+                        this@CountBottomSheet.dismiss()
+                    } else {
+                        changeScreen(screen = it)
                     }
-            }
+                }
         }
     }
 
