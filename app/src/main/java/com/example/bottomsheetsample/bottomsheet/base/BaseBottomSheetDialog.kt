@@ -1,4 +1,4 @@
-package com.example.bottomsheetsample.bottomsheet
+package com.example.bottomsheetsample.bottomsheet.base
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.NavigationRes
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetsample.R
+import com.example.bottomsheetsample.bottomsheet.findNavHostFragment
 import com.example.bottomsheetsample.databinding.DialogBottomSheetBaseBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog

@@ -2,7 +2,6 @@ package com.example.bottomsheetsample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.bottomsheetsample.bottomsheet.BaseBottomSheetDialog
 import com.example.bottomsheetsample.bottomsheet.count.CountBottomSheet
 import com.example.bottomsheetsample.databinding.ActivityMainBinding
 

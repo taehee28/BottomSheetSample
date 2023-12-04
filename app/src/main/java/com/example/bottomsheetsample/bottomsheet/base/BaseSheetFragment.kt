@@ -1,4 +1,4 @@
-package com.example.bottomsheetsample.bottomsheet
+package com.example.bottomsheetsample.bottomsheet.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

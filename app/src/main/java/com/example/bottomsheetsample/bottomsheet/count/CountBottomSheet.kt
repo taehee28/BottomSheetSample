@@ -1,16 +1,13 @@
 package com.example.bottomsheetsample.bottomsheet.count
 
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.bottomsheetsample.R
-import com.example.bottomsheetsample.bottomsheet.BaseBottomSheetDialog
-import com.example.bottomsheetsample.bottomsheet.SheetScreenEvent
+import com.example.bottomsheetsample.bottomsheet.base.BaseBottomSheetDialog
+import com.example.bottomsheetsample.bottomsheet.base.SheetScreenEvent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch

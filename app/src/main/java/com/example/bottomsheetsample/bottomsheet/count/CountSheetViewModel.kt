@@ -3,7 +3,7 @@ package com.example.bottomsheetsample.bottomsheet.count
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bottomsheetsample.bottomsheet.SheetScreenEvent
+import com.example.bottomsheetsample.bottomsheet.base.SheetScreenEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
