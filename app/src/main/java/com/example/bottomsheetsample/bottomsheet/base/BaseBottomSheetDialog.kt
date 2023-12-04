@@ -6,11 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.annotation.NavigationRes
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import com.example.bottomsheetsample.R
-import com.example.bottomsheetsample.bottomsheet.findNavHostFragment
 import com.example.bottomsheetsample.databinding.DialogBottomSheetBaseBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 
     private var _binding: DialogBottomSheetBaseBinding? = null
-    protected val binding
+    protected val baseBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -34,7 +29,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = DialogBottomSheetBaseBinding.inflate(inflater, container, false)
 
-        return binding.root
+        return baseBinding.root
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

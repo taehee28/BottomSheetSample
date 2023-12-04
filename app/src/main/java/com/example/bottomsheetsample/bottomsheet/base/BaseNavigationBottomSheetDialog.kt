@@ -22,9 +22,11 @@ abstract class BaseNavigationBottomSheetDialog : BaseBottomSheetDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        baseBinding.layoutFrame.visibility = View.GONE
+
         childFragmentManager
             .beginTransaction()
-            .add(binding.fragmentContainer.id, NavHostFragment())
+            .add(baseBinding.fragmentContainer.id, NavHostFragment())
             .commitNow()
 
         navController.setGraph(navGraphId)
