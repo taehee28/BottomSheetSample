@@ -13,8 +13,13 @@ import com.example.bottomsheetsample.databinding.ItemPinkBinding
 object ColorType {
     const val BLUE = 1
     const val PINK = 2
+    const val YELLOW = 3
+    const val GREEN = 4
 }
 
+/**
+ * 다른 타입의 데이터 모델 2개를 하나의 data class로 묶어서 어댑터의 데이터 타입으로 쓰는 어댑터 예제
+ */
 class ColorListAdapter : ListAdapter<ColorModel, ColorViewHolder>(ColorDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {

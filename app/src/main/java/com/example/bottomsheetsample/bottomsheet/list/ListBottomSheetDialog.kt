@@ -9,6 +9,7 @@ import com.example.bottomsheetsample.databinding.DialogBottomSheetListBinding
 class ListBottomSheetDialog : BaseSingleBottomSheetDialog<DialogBottomSheetListBinding>() {
 
     private val adapter: ColorListAdapter by lazy { ColorListAdapter() }
+    private val adapter2: ColorListAdapter2 by lazy { ColorListAdapter2() }
 
     override fun getBinding(
         inflater: LayoutInflater,
@@ -22,8 +23,18 @@ class ListBottomSheetDialog : BaseSingleBottomSheetDialog<DialogBottomSheetListB
             dismiss()
         }
 
+//        setAdapter1()
+        setAdapter2()
+    }
+
+    private fun setAdapter1() {
         binding.rvList.adapter = adapter
         adapter.submitList(pinkList)
+    }
+
+    private fun setAdapter2() {
+        binding.rvList.adapter = adapter2
+        adapter2.submitList(greenList)
     }
 }
 

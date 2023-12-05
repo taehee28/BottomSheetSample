@@ -36,3 +36,26 @@ val blueList = List(20) {
 val pinkList = List(20) {
     PinkModel(id = it, content = "${it+1}번째").toColorModel()
 }
+
+// -----------------------------------------------------------------------------
+
+interface Color
+
+data class YellowModel(
+    val id: Int,
+    val content: String
+) : Color
+
+data class GreenModel(
+    val id: Int,
+    val content: String
+) : Color
+
+
+val yellowList = List(20) {
+    YellowModel(id = it, content = "${it+1}번째")
+}
+
+val greenList = List(20) {
+    GreenModel(id = it, content = "${it+1}번째")
+}
