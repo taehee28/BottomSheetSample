@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.bottomsheetsample.bottomsheet.base.BaseSingleBottomSheetDialog
 import com.example.bottomsheetsample.bottomsheet.count.CountBottomSheet
+import com.example.bottomsheetsample.bottomsheet.list.ListBottomSheetDialog
+import com.example.bottomsheetsample.bottomsheet.show
 import com.example.bottomsheetsample.bottomsheet.single.GreetingBottomSheetDialog
 import com.example.bottomsheetsample.databinding.ActivityMainBinding
 
@@ -17,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnShowBottomSheet.setOnClickListener {
 //            CountBottomSheet().show(supportFragmentManager, "")
-            GreetingBottomSheetDialog().show(supportFragmentManager, "")
+//            GreetingBottomSheetDialog().show(supportFragmentManager, "")
+            ListBottomSheetDialog().show(supportFragmentManager)
         }
     }
 }
